@@ -1,0 +1,38 @@
+
+create database hotel;
+use hotel;
+show tables;
+create table menus(menuid int primary key,foodname varchar(30),price int);
+describe menus;
+select * from menus;
+insert into menus values(1,"2 idly",10);
+insert into menus values(2,"dosa",30);
+insert into menus values(3,"poori",20);
+insert into menus values(4,"pongal",45);
+insert into menus values(5,"puttu",30);
+insert into menus values(6,"fried noodles",60);
+insert into menus values(7,"fried rice",60);
+insert into menus values(8,"biryani",70);
+insert into menus values(9,"veg meals",50);
+insert into menus values(10,"schezwan rice",50);
+insert into menus values(11,"schezwann noodles",70);
+insert into menus values(12,"parotta",40);
+insert into menus values(13,"naan roti",30);
+insert into menus values(14,"shawarma roll",70);
+insert into menus values(15,"kothu parotta",50);
+select* from menus;
+create table orderid(oid int auto_increment primary key,seats int ,date date);
+describe orderid;
+select * from orderid;
+drop table orderid;
+create table orderlists(orderitemid int auto_increment primary key,oid int,fooditem varchar(20),plates int,status varchar(10),date date,foreign key(oid)references orderid(oid));
+describe orderlists;
+select* from orderlists;
+drop table orderlists;
+create table managers(orderitemid int auto_increment primary key,oid int,fooditem varchar(20),plates int,status varchar(10),date date,foreign key(oid)references orderid(oid));
+
+describe managers;
+set foreign_key_checks=0;
+truncate orderid ;
+truncate orderlists;
+set foreign_key_checks=1;
