@@ -1,0 +1,432 @@
+JAVA CODE:
+==========
+package miniproject;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.*;
+class orderid
+{
+  private String name;
+  private Integer plates;
+  private int price;
+ 
+  public String getName()
+  {
+ return name;
+  }
+ 
+  public void setName(String name)
+  {
+ this.name = name;
+  }
+ 
+  public int getplates()
+  {
+ return plates;
+  }
+ 
+  public void setplates(int plates)
+  {
+ this.plates = plates;
+  }
+  public int getprice()
+  {
+ return price;
+  }
+ 
+  public void setprice(int price)
+  {
+ this.price = price;
+  }
+
+public static void add(orderid oi) {
+// TODO Auto-generated method stub
+
+}
+
+public static orderid get(int i) {
+// TODO Auto-generated method stub
+return null;
+}
+}
+public class Backend
+{
+  public static void main(String[] args)
+  {
+try
+{
+ List<orderid> orderid = new ArrayList<orderid>();
+ int seats;
+ String li;
+ int seat,plates,oid;
+ boolean ch=true;
+ String s2,food1;;
+ boolean check=true;
+//  System.out.println("How many seats you want?.");
+ Scanner sc=new Scanner(System.in);
+//  seats=sc.nextInt();
+ if(ch)
+ {
+   //System.out.println("Menu Lists With Price Per plates:");
+   
+System.out.println("Menu Lists with Price:");
+//Class.forName("com.sql.jdbc.Driver");
+Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel","root","Chandhini@24");
+Statement st=con.createStatement();
+ResultSet rs=st.executeQuery("SELECT * FROM menus");
+while(rs.next())
+{
+ int sino=rs.getInt("menuid");
+   String food=rs.getString("foodname");
+ int price=rs.getInt("price");
+ System.out.println("__________________________________");
+ System.out.println(sino+"   |"+food+"   |"+price+"  |");
+}
+System.out.println("____________________________________");
+final Scanner sc1=new Scanner(System.in);
+   HashMap<String, Integer> foods=new HashMap<>();
+   foods.put("2 idly",10);
+   foods.put("dosa",30);
+   foods.put("poori",20);
+   foods.put("pongal", 45);
+   foods.put("puttu",30);
+   foods.put("fried noodles", 60);
+   foods.put("fried rice", 60);
+   foods.put("briyani", 70);
+   foods.put("veg meals", 50);
+   foods.put("schezwan rice", 50);
+   foods.put("schezwan noodles", 70);
+   foods.put("parotta", 40);
+   foods.put("naan roti", 30);
+   foods.put("shawarma roll", 70);
+   foods.put("kothu parotta", 50);
+  // System.out.println(foods+"\n");
+   System.out.println("Choose the foods you want or press f to finish order");
+   for(int i=0;i<1;i++);
+{
+Calendar calendar = Calendar.getInstance();
+   java.sql.Date startDate = new java.sql.Date(calendar.getTime().getTime());
+   String query = " insert into orderid (seats,date)" + " values ( ?,?)";
+   PreparedStatement preparedStmt = con.prepareStatement(query);
+   System.out.println("How many Seats:");
+   seat=sc.nextInt();
+   preparedStmt.setInt (1, seat);
+   preparedStmt.setDate(2, startDate);
+   preparedStmt.execute();
+}
+   while(check)
+   {
+    orderid oi = new orderid();
+    Calendar calendar = Calendar.getInstance();
+       java.sql.Date startDate = new java.sql.Date(calendar.getTime().getTime());
+    Connection con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel","root","Chandhini@24");
+       Statement st1=con1.createStatement();
+       ResultSet rs1=st1.executeQuery("SELECT oid FROM orderid ORDER BY oid DESC LIMIT 1");
+ 
+       while(rs1.next())
+    {
+               oid=rs1.getInt("oid");
+      String query1 = " insert into orderlists(oid,fooditem,plates,status,date)" + " values ( ?,?,?,?,?)";
+          PreparedStatement preparedStmt1 = con.prepareStatement(query1);
+          //Scanner sc1=new Scanner(System.in);
+          String query2 = " insert into managers(oid,fooditem,plates,status,date)" + " values ( ?,?,?,?,?)";
+          PreparedStatement preparedStmt2 = con.prepareStatement(query2);
+          System.out.println("Enter the Food You Want Or press f to finish order.");
+         
+          food1=sc1.nextLine();
+         
+         
+         switch (food1)
+        {
+           case "2 idly":
+System.out.println("How many plates you want?.");
+plates = sc.nextInt();
+preparedStmt2.setInt (1,oid);
+       preparedStmt1.setString(2,food1);
+       preparedStmt1.setInt(3,plates);
+       preparedStmt1.setString(4,"Chef");
+       preparedStmt1.setDate(5, startDate);
+       preparedStmt2.execute();
+oi.setplates(plates);
+oi.setName("2 idly");
+oi.setprice(10 * plates);
+orderid.add(oi);
+break;
+   case "dosa":
+System.out.println("How many plates you want?.");
+plates = sc.nextInt();
+preparedStmt1.setInt (1,oid);
+       preparedStmt1.setString(2,food1);
+       preparedStmt1.setInt(3,plates);
+       preparedStmt1.setString(4,"Chef");
+       preparedStmt1.setDate(5, startDate);
+       preparedStmt1.execute();
+oi.setplates(plates);
+oi.setName("Dosa");
+oi.setprice(30 * plates);
+orderid.add(oi);
+break;
+   case "poori":
+System.out.println("How many plates you want?.");
+plates = sc.nextInt();
+preparedStmt1.setInt (1,oid);
+       preparedStmt1.setString(2,food1);
+       preparedStmt1.setInt(3,plates);
+       preparedStmt1.setString(4,"Chef");
+       preparedStmt1.setDate(5, startDate);
+       preparedStmt1.execute();
+oi.setplates(plates);
+oi.setName("Poori");
+oi.setprice(20 * plates);
+orderid.add(oi);
+break;
+   case "pongal":
+System.out.println("How many plates you want?.");
+plates = sc.nextInt();
+preparedStmt1.setInt (1,oid);
+       preparedStmt1.setString(2,food1);
+       preparedStmt1.setInt(3,plates);
+       preparedStmt1.setString(4,"Chef");
+       preparedStmt1.setDate(5, startDate);
+       preparedStmt1.execute();
+oi.setplates(plates);
+oi.setName("pongal");
+oi.setprice(45 * plates);
+orderid.add(oi);
+break;
+   case "puttu":
+System.out.println("How many plates you want?.");
+
+plates = sc.nextInt();
+preparedStmt1.setInt (1,oid);
+       preparedStmt1.setString(2,food1);
+       preparedStmt1.setInt(3,plates);
+       preparedStmt1.setString(4,"Chef");
+       preparedStmt1.setDate(5, startDate);
+       preparedStmt1.execute();
+oi.setplates(plates);
+oi.setplates(plates);
+oi.setName("puttu");
+oi.setprice(30 * plates);
+
+orderid.add(oi);
+break;
+   case "fried noodles":
+System.out.println("How many plates you want?.");
+plates = sc.nextInt();
+preparedStmt1.setInt (1,oid);
+       preparedStmt1.setString(2,food1);
+       preparedStmt1.setInt(3,plates);
+       preparedStmt1.setString(4,"Chef");
+       preparedStmt1.setDate(5, startDate);
+       preparedStmt1.execute();
+oi.setplates(plates);
+oi.setName("fried noodles");
+oi.setprice(60 * plates);
+orderid.add(oi);
+break;
+   case "fried rice":
+System.out.println("How many plates you want?.");
+plates = sc.nextInt();
+preparedStmt1.setInt (1,oid);
+       preparedStmt1.setString(2,food1);
+       preparedStmt1.setInt(3,plates);
+       preparedStmt1.setString(4,"Chef");
+       preparedStmt1.setDate(5, startDate);
+       preparedStmt1.execute();
+oi.setplates(plates);
+oi.setName("fried rice");
+oi.setprice(60 * plates);
+orderid.add(oi);
+break;
+   case "biryani":
+System.out.println("How many plates you want?.");
+plates = sc.nextInt();
+preparedStmt1.setInt (1,oid);
+       preparedStmt1.setString(2,food1);
+       preparedStmt1.setInt(3,plates);
+       preparedStmt1.setString(4,"Chef");
+       preparedStmt1.setDate(5, startDate);
+       preparedStmt1.execute();
+oi.setplates(plates);
+oi.setName("biryani");
+oi.setprice(70 * plates);
+orderid.add(oi);
+break;
+   case "veg meals":
+System.out.println("How many plates you want?.");
+plates = sc.nextInt();
+preparedStmt1.setInt (1,oid);
+       preparedStmt1.setString(2,food1);
+       preparedStmt1.setInt(3,plates);
+       preparedStmt1.setString(4,"Chef");
+       preparedStmt1.setDate(5, startDate);
+       preparedStmt1.execute();
+oi.setplates(plates);
+oi.setName("veg meals");
+oi.setprice(50 * plates);
+orderid.add(oi);
+break;
+   case "schezwan rice":
+System.out.println("How many plates you want?.");
+plates = sc.nextInt();
+preparedStmt1.setInt (1,oid);
+       preparedStmt1.setString(2,food1);
+       preparedStmt1.setInt(3,plates);
+       preparedStmt1.setString(4,"Chef");
+       preparedStmt1.setDate(5, startDate);
+       preparedStmt1.execute();
+oi.setplates(plates);
+oi.setName("schezwan rice");
+oi.setprice(50 * plates);
+orderid.add(oi);
+break;
+   case "schezwan noodles":
+System.out.println("How many plates you want?.");
+plates = sc.nextInt();
+preparedStmt1.setInt (1,oid);
+       preparedStmt1.setString(2,food1);
+       preparedStmt1.setInt(3,plates);
+       preparedStmt1.setString(4,"Chef");
+       preparedStmt1.setDate(5, startDate);
+       preparedStmt1.execute();
+oi.setplates(plates);
+oi.setName("schezwan noodles");
+oi.setprice(70 * plates);
+orderid.add(oi);
+break;
+   case "parotta":
+System.out.println("How many plates you want?.");
+plates = sc.nextInt();
+preparedStmt1.setInt (1,oid);
+       preparedStmt1.setString(2,food1);
+       preparedStmt1.setInt(3,plates);
+       preparedStmt1.setString(4,"Chef");
+       preparedStmt1.setDate(5, startDate);
+       preparedStmt1.execute();
+oi.setplates(plates);
+oi.setName("parotta");
+oi.setprice(40 * plates);
+orderid.add(oi);
+break;
+   case "naan roti":
+System.out.println("How many plates you want?.");
+plates = sc.nextInt();
+preparedStmt1.setInt (1,oid);
+       preparedStmt1.setString(2,food1);
+       preparedStmt1.setInt(3,plates);
+       preparedStmt1.setString(4,"Chef");
+       preparedStmt1.setDate(5, startDate);
+       preparedStmt1.execute();
+oi.setplates(plates);
+oi.setName("naan roti");
+oi.setprice(30 * plates);
+orderid.add(oi);
+break;
+   case "shawarma roll":
+System.out.println("How many plates you want?.");
+plates = sc.nextInt();
+preparedStmt1.setInt (1,oid);
+       preparedStmt1.setString(2,food1);
+       preparedStmt1.setInt(3,plates);
+       preparedStmt1.setString(4,"Chef");
+       preparedStmt1.setDate(5, startDate);
+       preparedStmt1.execute();
+oi.setplates(plates);
+oi.setName("shawarma roll");
+oi.setprice(70 * plates);
+orderid.add(oi);
+break;
+   case "kothu parotta":
+System.out.println("How many plates you want?.");
+plates = sc.nextInt();
+preparedStmt1.setInt (1,oid);
+       preparedStmt1.setString(2,food1);
+       preparedStmt1.setInt(3,plates);
+       preparedStmt1.setString(4,"Chef");
+       preparedStmt1.setDate(5, startDate);
+       preparedStmt1.execute();
+oi.setplates(plates);
+oi.setName("VegetableRice");
+oi.setprice(50 * plates);
+orderid.add(oi);
+break;
+   case "f":
+    int totalBill = 0;
+    System.out.println("Name \tPlates\t Price");
+    for (int i=0; i < orderid.size(); i++)
+    {
+    orderid item  = orderid.get(i);
+    System.out.print(item.getName() + "\t" + item.getplates() + "\t" + item.getprice()+"\n");
+    totalBill=totalBill+item.getprice();
+   
+    }
+    System.out.println( "  "+"Total Amount:"+totalBill);
+    check=false;
+        }
+   
+        }
+      }
+ }
+ else
+ {
+System.out.println("Only 90 Seats are Available");
+}
+  }
+  catch (Exception e)
+  {
+System.out.println(e);
+e.printStackTrace();
+  }
+finally
+{
+System.out.println("");
+
+}
+ }
+}
+
+DATABASE:
+=========
+
+create database hotel;
+use hotel;
+show tables;
+create table menus(menuid int primary key,foodname varchar(30),price int);
+describe menus;
+select * from menus;
+insert into menus values(1,"2 idly",10);
+insert into menus values(2,"dosa",30);
+insert into menus values(3,"poori",20);
+insert into menus values(4,"pongal",45);
+insert into menus values(5,"puttu",30);
+insert into menus values(6,"fried noodles",60);
+insert into menus values(7,"fried rice",60);
+insert into menus values(8,"biryani",70);
+insert into menus values(9,"veg meals",50);
+insert into menus values(10,"schezwan rice",50);
+insert into menus values(11,"schezwann noodles",70);
+insert into menus values(12,"parotta",40);
+insert into menus values(13,"naan roti",30);
+insert into menus values(14,"shawarma roll",70);
+insert into menus values(15,"kothu parotta",50);
+select* from menus;
+create table orderid(oid int auto_increment primary key,seats int ,date date);
+describe orderid;
+select * from orderid;
+drop table orderid;
+create table orderlists(orderitemid int auto_increment primary key,oid int,fooditem varchar(20),plates int,status varchar(10),date date,foreign key(oid)references orderid(oid));
+describe orderlists;
+select* from orderlists;
+drop table orderlists;
+create table managers(orderitemid int auto_increment primary key,oid int,fooditem varchar(20),plates int,status varchar(10),date date,foreign key(oid)references orderid(oid));
+
+describe managers;
+set foreign_key_checks=0;
+truncate orderid ;
+truncate orderlists;
+set foreign_key_checks=1;
